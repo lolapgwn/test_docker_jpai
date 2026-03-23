@@ -1,0 +1,199 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\student> ssh -p 2010 student@149.156.194.192
+(student@149.156.194.192) Password:
+
+ System information as of Mon Mar 23 12:21:15 UTC 2026
+
+  System load:           0.35
+  Usage of /:            84.0% of 915.32GB
+  Memory usage:          8%
+  Swap usage:            0%
+  Temperature:           69.8 C
+  Processes:             24
+  Users logged in:       0
+  IPv4 address for eth0: 10.191.221.39
+  IPv6 address for eth0: fd42:e0c6:e7ff:c3b0:216:3eff:fe23:4a15
+
+=================================================================
+           WITAJ W LABORATORIUM GIT & DOCKER (LXD)
+=================================================================
+ Jesteś zalogowany jako: student
+ Twoje środowisko jest odizolowane i gotowe do pracy.
+
+ PRZYDATNE KOMENDY NA START:
+  > git status     - sprawdzenie stanu lokalnego repozytorium
+  > docker ps      - lista aktualnie uruchomionych kontenerów
+  > clear          - wyczyszczenie ekranu terminala
+=================================================================
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+student@student-10:~$ git clone https://github.com/lolapgwn/test_docker_jpai
+Cloning into 'test_docker_jpai'...
+remote: Enumerating objects: 6, done.
+remote: Counting objects: 100% (6/6), done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 6 (delta 0), reused 5 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (6/6), done.
+student@student-10:~$ ls
+test_docker_jpai
+student@student-10:~$ cd test_docker_jpai
+student@student-10:~/test_docker_jpai$ ls
+README.md  app.js  package.json  zbuduj_mnie
+student@student-10:~/test_docker_jpai$ docker build -t kolokwium:latest .
+[+] Building 0.3s (1/1) FINISHED                                                       docker:default
+ => [internal] load build definition from Dockerfile                                             0.1s
+ => => transferring dockerfile: 2B                                                               0.0s
+ERROR: failed to build: failed to solve: failed to read dockerfile: open Dockerfile: no such file or directory
+student@student-10:~/test_docker_jpai$ exit
+logout
+Connection to 149.156.194.192 closed.
+PS C:\Users\student> ssh -p 2010 student@149.156.194.192
+(student@149.156.194.192) Password:
+
+ System information as of Mon Mar 23 12:32:07 UTC 2026
+
+  System load:           1.48
+  Usage of /:            84.0% of 915.32GB
+  Memory usage:          9%
+  Swap usage:            0%
+  Temperature:           75.2 C
+  Processes:             24
+  Users logged in:       0
+  IPv4 address for eth0: 10.191.221.39
+  IPv6 address for eth0: fd42:e0c6:e7ff:c3b0:216:3eff:fe23:4a15
+
+=================================================================
+           WITAJ W LABORATORIUM GIT & DOCKER (LXD)
+=================================================================
+ Jesteś zalogowany jako: student
+ Twoje środowisko jest odizolowane i gotowe do pracy.
+
+ PRZYDATNE KOMENDY NA START:
+  > git status     - sprawdzenie stanu lokalnego repozytorium
+  > docker ps      - lista aktualnie uruchomionych kontenerów
+  > clear          - wyczyszczenie ekranu terminala
+=================================================================
+
+Last login: Mon Mar 23 12:21:16 2026 from 127.0.0.1
+student@student-10:~$ git clone https://github.com/lolapgwn/test_docker_jpai
+fatal: destination path 'test_docker_jpai' already exists and is not an empty directory.
+student@student-10:~$ cd test_docker_jpai
+student@student-10:~/test_docker_jpai$ touch Dockerfile
+student@student-10:~/test_docker_jpai$ docker build -t kolokwium:latest .
+[+] Building 0.2s (1/1) FINISHED                                                       docker:default
+ => [internal] load build definition from Dockerfile                                             0.0s
+ => => transferring dockerfile: 31B                                                              0.0s
+ERROR: failed to build: failed to solve: the Dockerfile cannot be empty
+student@student-10:~/test_docker_jpai$ nano Dockerfile
+student@student-10:~/test_docker_jpai$ docker build -t kolokwium:latest .
+[+] Building 0.2s (1/1) FINISHED                                                       docker:default
+ => [internal] load build definition from Dockerfile                                             0.0s
+ => => transferring dockerfile: 50B                                                              0.0s
+Dockerfile:1
+--------------------
+   1 | >>> pieski kotki
+   2 |
+--------------------
+ERROR: failed to build: failed to solve: dockerfile parse error on line 1: unknown instruction: pieski
+student@student-10:~/test_docker_jpai$ docker run -d -p 3000:3000 --name moja-apka kolokwium:latest
+Unable to find image 'kolokwium:latest' locally
+docker: Error response from daemon: pull access denied for kolokwium, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+student@student-10:~/test_docker_jpai$ docker run -d -p 3000:3000 --name moja-apka Dockerfile
+docker: invalid reference format: repository name (library/Dockerfile) must be lowercase
+
+Run 'docker run --help' for more information
+student@student-10:~/test_docker_jpai$ docker run -d -p 3000:3000 --name moja-apka dockerfile
+Unable to find image 'dockerfile:latest' locally
+docker: Error response from daemon: pull access denied for dockerfile, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+student@student-10:~/test_docker_jpai$ docker run -d -p 3000:3000 --name moja-apka test_docker_jpai
+Unable to find image 'test_docker_jpai:latest' locally
+docker: Error response from daemon: pull access denied for test_docker_jpai, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+student@student-10:~/test_docker_jpai$ curl -f http://localhost:3000/
+curl: (7) Failed to connect to localhost port 3000 after 0 ms: Couldn't connect to server
+student@student-10:~/test_docker_jpai$ docker run -d -p 3000:3000 --name moja-apka
+docker: 'docker run' requires at least 1 argument
+
+Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+See 'docker run --help' for more information
+student@student-10:~/test_docker_jpai$ docker run -d -p 3000:3000 --name moja-apka lab-app
+Unable to find image 'lab-app:latest' locally
+docker: Error response from daemon: pull access denied for lab-app, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+student@student-10:~/test_docker_jpai$ docker run -d -p 3000:3000 --name moja-apka kolokwium
+Unable to find image 'kolokwium:latest' locally
+docker: Error response from daemon: pull access denied for kolokwium, repository does not exist or may require 'docker login'
+
+Run 'docker run --help' for more information
+student@student-10:~/test_docker_jpai$ nano dockerfile
+student@student-10:~/test_docker_jpai$ docker build -t kolokwium:latest .
+[+] Building 0.2s (1/1) FINISHED                                                       docker:default
+ => [internal] load build definition from Dockerfile                                             0.0s
+ => => transferring dockerfile: 93B                                                              0.0s
+Dockerfile:1
+--------------------
+   1 | >>> pieski kotki
+   2 |
+--------------------
+ERROR: failed to build: failed to solve: dockerfile parse error on line 1: unknown instruction: pieski
+student@student-10:~/test_docker_jpai$ nano Dockerfile
+student@student-10:~/test_docker_jpai$ docker build -t kolokwium:latest .
+[+] Building 0.2s (1/1) FINISHED                                                       docker:default
+ => [internal] load build definition from Dockerfile                                             0.0s
+ => => transferring dockerfile: 98B                                                              0.0s
+Dockerfile:1
+--------------------
+   1 | >>> kolokwium:latest
+   2 |
+   3 |
+--------------------
+ERROR: failed to build: failed to solve: dockerfile parse error on line 1: unknown instruction: kolokwium:latest
+student@student-10:~/test_docker_jpai$ nano Dockerfile
+student@student-10:~/test_docker_jpai$ docker build -t kolokwium:latest .
+[+] Building 0.2s (1/1) FINISHED                                                       docker:default
+ => [internal] load build definition from Dockerfile                                             0.0s
+ => => transferring dockerfile: 82B                                                              0.0s
+Dockerfile:2
+--------------------
+   1 |
+   2 | >>>
+   3 |
+--------------------
+ERROR: failed to build: failed to solve: file with no instructions
+student@student-10:~/test_docker_jpai$ docker rm -f apka-dev
+Error response from daemon: No such container: apka-dev
+student@student-10:~/test_docker_jpai$ docker rm -f kolokwium:latest
+Error response from daemon: No such container: kolokwium:latest
+student@student-10:~/test_docker_jpai$ docker save docker.log
+cowardly refusing to save to a terminal. Use the -o flag or redirect
+student@student-10:~/test_docker_jpai$ docker.log
+docker.log: command not found
+student@student-10:~/test_docker_jpai$ git push
+Username for 'https://github.com': lolapgwn
+Password for 'https://lolapgwn@github.com':
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+fatal: Authentication failed for 'https://github.com/lolapgwn/test_docker_jpai/'
+student@student-10:~/test_docker_jpai$ git push
+Username for 'https://github.com': lolapgwn
+Password for 'https://lolapgwn@github.com':
+remote: Permission to lolapgwn/test_docker_jpai.git denied to lolapgwn.
+fatal: unable to access 'https://github.com/lolapgwn/test_docker_jpai/': The requested URL returned error: 403
+student@student-10:~/test_docker_jpai$
